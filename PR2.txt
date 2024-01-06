@@ -1,0 +1,90 @@
+Descripció del dataset.
+
+El dataset és important ja que conté dades reals de pacients i si aquests han tingut o no un atac de cor, 
+les malalties cardiovasculars són la primera
+causa de mort al món, per tant poder tindre informació estructurada i real d'aquesta problemàtica per tal de poder-la
+estudiar és de vital importancia.
+
+El dataset pretén respondre o donar els mitjans per tal de respondre la pregunta de com es relaciona el fet de tindre
+o no un atac de cor amb les diferents característiques associades al pacient.
+
+El nombre de característiques rellevants o que tenen alguna mena de rellevancia sobre si una persona tindra un atac de cor o no
+pot ser molt gran i segur que s'ens escapen característiques que influencien de certa manera l'outcome, però el dataset
+recull les esencials i necesaries per tal de tindre una explicabilitat alta amb un nombre de features reduït.
+
+La funció que explica la relació entre un atac de cor i les característiques d'una persona a la realitat tindrà en compte
+moltes variables i moltes dimensions, per tal d'aproximar-la fem servir aquestes característiques seleccionades
+ja que són les que major explicabilitat ens aporten.
+
+2. Integració i selecció de les dades d'interès.
+
+Aquest pas es díficil de realitzar per aquest dataset, ja que és un dataset ja preseleccionat importancia
+la integració ja està feta, tenim 303 observacions las quals no són moltes, l'únic motiu pel qual podriem
+excloure variables es per que aquestes no siguin significatives a l'hora de predir l'outcome però en aquest cas
+això encara no ho podem saber i ho sabrem quan realitzem la creació d'un model i realitzem inferència.
+
+Com a resum, degut a que el dataset és un dataset net i preparat especificament per tal de poder realitzar
+tasques de ML amb ell, no requereix d'integració ni de fer una selecció sobre les dades originals
+ja que aquestes són valides, contenen una volumetria acceptable, les features en principi hauriem de ser relevants
+i no n'hi ha en excés.
+
+Per tant poder l'únic procés que aplicaria per aquest apartat és aillar el target.
+
+3. Neteja de les dades.
+
+El dataset no conté NaN's, com he dit anteriorment el dataset que ens ofereix l'enunciat ja ha sigut netejat i preprocessat amb anterioritat per l'autor per tal
+de fer-lo un dataset de pràctica per altre gent. Tampoc conté 0 sense sentit que puguin ser interpretats com a NaN's.
+Al codi faig una definició de cada variable i represento un boxplot en cas de que la variable sigui continua o un barplot si es categorica.
+Detectem 20 outliers en total, dels quals 19 són registres "distincts", tenint en compte que representen un 6.25% de la volumetría del dataset i que no tinc
+el coneixement tècnic suficient per poder jutjar que aquests valors poden tindre sentit decideixo eliminar-los.
+Podia haver sustituit els valors outliers per alguna constant estadística de la variable en el registre en concret, però trobo millor donada la volumetría
+i veient en els boxplots que algun d'aquest valor s'en va molt del rang normal que es millor simplement eliminar-los.
+També podia comprimir tots els valors de la columna per tal d'intentar eliminar els outliers o reduirlos, mitjançant alguna funció del tipus log, però trobo més pràctic i lògic, eliminar els registres.
+Deixo una breu descripció de cada variable que també incloc al codi:
+
+	Age: edat del pacient
+	Sex: sexe del pacient
+	cp: tipus de dolor de pit
+	trtbps: pressió sanguinia en repos en mm
+	chol: colesterol en mg/dl
+	fbs: sucre en sang en dejú, > 120 mg/dl = 1 else 0
+	restecg: resultats electrocardiografics en repos. Categories
+	thalachh: major tasa de batecs assolida
+	exang: atac produit per exercici físic? 1 o 0.
+	oldpeak: major tasa de batecs assolida anteriorment
+	slp: pendent de la pujada de la tasa de batecs
+	ca: número d'arteries afectades.
+	thall: malaltia de la sang, categorica, tipus de malaltia.
+
+
+4. Ànalisi de les dades.
+
+4.1.
+Si hi ha dos grups que volem comparar, evidentment, ja que és un problema de classificació binaria.
+Els dos grups a comparar seran els registres amb output o target 0 i els registres amb output o target 1.
+
+És a dir, volem trobar diferències rellevants que indiquin quines són les característiques que fan a un registre
+pertanyer a un dels dos grups.
+
+Com a metodes d'analisis, farem servir correlacions entre les variables dels dos grups i comparació entre elles,
+contrast d'hipotesis entre les característiques dels dos grups i com a últim metode també farem servir
+un arbre de decisions del estil XGBoost per tal de extreure explicabilitat a les variables i coneixer
+les diferents regles que porten a pertanyer a un grup o un altre, també n'extraurem la importància de les variables en el resultat.
+
+4.2.
+
+Faig els test per cada variable i cada grup al codi, exposo aquí les conclusions.
+Mencionar que testejar la normalitat i la homogeneitat de la variancia entre dos grups només es posible per variables
+continues, per tant hem de deixar les variables categoriques fora(per molt que estiguin en format númeric),
+si volguessim fer algun test sobre aquestes podríem fer un chi quadrat entre les variables target i la categorica en concret.
+Com que no es demana a l'enunciat em limito a fer-ho sobre les continues.
+Aplico un test de shapiro per la normalitat i un test de levene per l'homogeneitat de variànces.
+Les conclusions són:
+
+	- Variable age pel grup 0 no segueix una distribució normal.
+	- Variable trtbps pel grup 0 no segueix una distribució normal.
+	- Variable thalachh pel grup 1 no segueix una distribució normal.
+	- Variable oldpeak, cap d'ambdós grups segueix una distribució normal.
+	- Variable age no compta amb homogeneitat de variànces entre els grups.
+	- Variable oldpeak no compta amb homogeneitat de variànces entre els grups.
+	- Tot el no mencionat en aquesta llista segueix una distribució normal i té homogeneitat de variànces entre els grups.
