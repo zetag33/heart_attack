@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import shapiro, levene, chi2_contingency
+from scipy.stats import shapiro, levene
 # We could fully do it using just matplotlib but for me the functionality of sns is sometimes simpler and more efficient
 
 # 1. Explanation of the dataset
