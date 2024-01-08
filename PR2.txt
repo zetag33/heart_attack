@@ -140,3 +140,5 @@ Dit això, per les proves realitzades les conlcusions principals són:
 	- exng 0 també augmenta molt la probabilitat, també ho fa thall 2 i thall 3.
 	- La variable sex quan ajuda al output a ser 0 té molta feature importance quan ajuda a ser 1 no en té tanta. (SHAP).
 	- El dataset es processa facilment i els algoritmes l'entenen correctament i retornen bons resultats tant de GINI com en accuracy.
+	- Els resultats permeten respondre ampliament al problema, però novament els resultats es centren en aquest dataset, la realitat dubto molt que s'assembli als resultats que s'obtenen del dataset, ja que el dataset no la reflexa.
+
