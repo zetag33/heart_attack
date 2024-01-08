@@ -1,1 +1,1 @@
-Study of the famous heart attack dataset, we bring some data insights from this csv and later we perform an xgboost and a binary classification neural network
+Study of the famous heart attack dataset. We are going to study the data structure, clean and prepare the data then apply a XGBoost and a Logistic Regression to the data and finally draw conclusions
