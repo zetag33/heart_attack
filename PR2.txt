@@ -126,6 +126,10 @@ D'aquesta trec les seguents conclusions:
 	- Age i cholesterol no són rellevants.
 El model retorna un accuracy del 88%.
 
+5.
+Totes les representacions es presenten al jupyter notebook que aportaro al repositori:
+https://github.com/zetag33/heart_attack/
+
 6. Resolució del problema.
 
 La primera conclusió que trec és que les conclusions d'aquest estudi probablement no es puguin aplicar a la població general, ja que el dataset esta "cherry-picked" i el target no reflexa la realitat, per tant podem tindre una concentració de 
@@ -141,4 +145,14 @@ Dit això, per les proves realitzades les conlcusions principals són:
 	- La variable sex quan ajuda al output a ser 0 té molta feature importance quan ajuda a ser 1 no en té tanta. (SHAP).
 	- El dataset es processa facilment i els algoritmes l'entenen correctament i retornen bons resultats tant de GINI com en accuracy.
 	- Els resultats permeten respondre ampliament al problema, però novament els resultats es centren en aquest dataset, la realitat dubto molt que s'assembli als resultats que s'obtenen del dataset, ja que el dataset no la reflexa.
+
+7.
+
+El codi es troba al repositori:
+https://github.com/zetag33/heart_attack/
+
+8.
+
+Enllaç del video:
+
 
