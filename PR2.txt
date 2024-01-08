@@ -88,3 +88,55 @@ Les conclusions són:
 	- Variable age no compta amb homogeneitat de variànces entre els grups.
 	- Variable oldpeak no compta amb homogeneitat de variànces entre els grups.
 	- Tot el no mencionat en aquesta llista segueix una distribució normal i té homogeneitat de variànces entre els grups.
+
+
+4.3.
+
+En aquest apartat en el codi realitzem correlacions per les variables continues, correlacions estandard i podem observar que pel grup 0(target=0) no hi cap correlació rellevant totes estan properes a 0.
+Pel grup 1(target=1), tenim una correlació rellevant thalachh i age. Thalach es el rati maxim de frequencia cardiaca assolit i age l'edat. Aquesta correlació és normal i lògica.
+A major edat, menor frequència cardíaca i viceversa. De fet això esta modelat per la formula MHR=220−Age. Per tant es una bona troballa i es un fet lògic.
+Duc a terme correlacions per les variables categoriques, em baso en la v de cramer que es basa en el test de chi**2.
+Podem veure una correlació entre exng i cp pel grup 0 i un altre correlació pel grup 1 entre sex i thall. La veritat no acabo d'entendre molt be la relació lògica que poden tindre, a més els valors no superen els 0.4 per
+tant realment no són massa rellevants.
+
+Posteriorment realitzo 2 test d'hipotesis:
+El primer sobre la variable cholesterol, el que esperem es que el colesterol sigui major per el grup 1 que el 0, però el que comprovem realment es que hi hagi una diferència significativa entre ambdos grups.
+La hipotesis nula es que aquesta diferencia no existeix. La proba dona un resultat de P-value 0.06, amb un 5% de significació no podriem refutar.
+Per tant no podem assumir que hi hagi una diferència, a més a més si veiem les mitjanes per ambdos grups veurem que el grup 1 té una menor tasa de colesterol que el grup 0 cosa bastant curiosa.
+
+El segon test d'hipotesis, comprova si hi ha una difèrencia d'edat entre amdos grups, esperariem que el grup 1 tingui major edat.
+La hipòtesi nula assumeix que aquesta difèrencia no existeix. El test retorna aquest valor P-value 8.928754006912085e-05. És a dir, si hi ha una diferència significativa entre els grups en la variable edat.
+A més a més novament tenim sorpresa, al veure que la mitja del grup zero es major que la del grup 1, just el contrari del que pensariem que passaria.
+
+Per últim entreno un XGBoost, mostro el conjunt de regles que el model retorna però són díficils de comprendre, faig un SHAP pel conjunt de test, i veiem que per exemple la variable sex quan ajuda al output a ser 0 té molta feature importance
+mentre que quan ajuda a ser 1, té molt poca feature importance. Passa el mateix amb exang i el contrari amb slp. El model entrenat retorna un accuracy del 84% i un GINI del 85% valors prou bons.
+Per últim realitzo també una regressió logística:
+
+D'aquesta trec les seguents conclusions:
+	- El fet que la variable sex sigui 1(home) fa que la probabilitat disminueixi.
+	- El fet que cp sigui 1 o 2 augmenta molt la probabilitat respecte a que sigui cp 0.
+	- El fet que restecg sigui 1 augmenta molt la probabilitat de target positiu respecte a que sigui 0 la mateix variable(restecg).
+	- exng 1 disminueix la probabilitat respecte a exng 0.
+	- Tots els valors de caa disminueixen la probabilitat respecte a que sigui 0, menys el 4.
+	- thall 2 augmenta molt la probabilitat i thall 3 la disminueix respecte a thall 0.
+	- Age i colesterol no tenen quasi influencia en l'output.
+	- La variable sex_1 és molt rellevant.
+	- Cp2 i cp3 també ho són.
+	- Caa1, 2 i 3 també
+	- Age i cholesterol no són rellevants.
+El model retorna un accuracy del 88%.
+
+6. Resolució del problema.
+
+La primera conclusió que trec és que les conclusions d'aquest estudi probablement no es puguin aplicar a la població general, ja que el dataset esta "cherry-picked" i el target no reflexa la realitat, per tant podem tindre una concentració de 
+positius al target que simplement són persones amb problemes congenits o casos particulars que s'han juntat per tal de poder tindre un target balancejat.
+
+Dit això, per les proves realitzades les conlcusions principals són:
+	- No hi ha correlacions significatives entre les variables en cap d'ambdós grups.
+	- El grup 1 no sembla tindre ni més edat ni més colesterol( més aviat el contrati, en té menys)
+	- Ser home, disminueix la probabilitat de tindre un target 1, respecte a ser dona.
+	- Age i colesterol no tenen influencia en l'output, no són rellevants.
+	- Els principals factors en que l'output sigui 1, són restecg  = 1, cp = 1 o 2 augmenta molt la probabilitat.
+	- exng 0 també augmenta molt la probabilitat, també ho fa thall 2 i thall 3.
+	- La variable sex quan ajuda al output a ser 0 té molta feature importance quan ajuda a ser 1 no en té tanta. (SHAP).
+	- El dataset es processa facilment i els algoritmes l'entenen correctament i retornen bons resultats tant de GINI com en accuracy.
