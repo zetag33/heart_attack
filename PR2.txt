@@ -1,4 +1,4 @@
-Descripció del dataset.
+1. Descripció del dataset.
 
 El dataset és important ja que conté dades reals de pacients i si aquests han tingut o no un atac de cor, 
 les malalties cardiovasculars són la primera
