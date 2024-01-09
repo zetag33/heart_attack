@@ -127,7 +127,7 @@ D'aquesta trec les seguents conclusions:
 El model retorna un accuracy del 88%.
 
 5.
-Totes les representacions es presenten al jupyter notebook que aportaro al repositori:
+Totes les representacions es presenten al jupyter notebook que aporto al repositori:
 https://github.com/zetag33/heart_attack/
 
 6. Resolució del problema.
@@ -150,6 +150,7 @@ Dit això, per les proves realitzades les conlcusions principals són:
 
 El codi es troba al repositori:
 https://github.com/zetag33/heart_attack/
+El repositori no es privat, és public, ja que no he trobat el nom de usuari ni contrasenya anunciats a l'aula ni tampoc en cap correu electronic enviat pel profesor, a més a més, l'accés per contraseña i usuari a repositoris esta desaconsellat per raons de seguretat.
 
 8.
 
